@@ -11,7 +11,6 @@ $mapContents = fread($mazeMap, filesize('mapconfig.txt'));
 if (isset($configContents)){
     $mapArray = array(); 
     $mapData = explode(':', $configContents);
-     print_r(array_values($mapData));
      $newArray = [
          'url' => $mapData[0],
          'threats' => $mapData[1],
@@ -20,8 +19,6 @@ if (isset($configContents)){
          'player' => $mapData[4]
      ];
 
-    //  print_r($newArray);
-     return $mapData;
+     echo json_encode($newArray);
 }
-
 ?>
