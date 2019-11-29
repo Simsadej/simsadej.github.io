@@ -7,13 +7,13 @@
 // 5 = player/ player
 //8 = exit
 "use strict";
-var map = [  loadDoc()];
+var map = [];
 function loadDoc() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 	  if (this.readyState == 4 && this.status == 200) {
 		  console.log(this.responseText);
-		return this.responseText;
+		  map.push(this.responseText);
 	  }
 	};
 	xhttp.open("GET", "mazeconfig.php", true);
@@ -84,7 +84,6 @@ function clearMaze(){
 	  }  
   }
 
-//   drawMaze();
 
 function moveUp(){
 	if(map[player.y-1][player.x] !== WALL){
@@ -166,6 +165,7 @@ function moveRight(){
 	})
   
 function init(){
+	loadDoc();
 	drawMaze();
 	drawWall(map[cols], map[rows]);
 	// player.x = start.x;
