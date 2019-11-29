@@ -1,0 +1,73 @@
+body{
+	background: black;
+}
+
+#maze-container{
+	max-width: 100%;
+    max-height: 100%;
+    margin: 20px auto;
+    padding: 2em;
+	border: 5px solid purple;
+	background: black;
+  }
+  
+.jumbotron-fluid{
+	margin: 3em;
+	border-radius: 8px;
+}
+
+a{
+	color: white;
+	font-size: 20px;
+}
+h6, span{
+	font-weight: 600;
+	font-size: 20px;
+}
+
+
+/* Inner Maze Styles */
+.wall {
+	height: 64px;
+    width: 64px;
+	background:url('/img/brickwall.png');
+	display: inline-block;
+}
+
+.passage {
+	height: 64px;
+	width: 64px;
+	display: inline-block;
+	background: black;
+	background-size: cover;
+
+}
+
+.exit{
+	height: 64px;
+	width: 64px;
+	display: inline-block;
+	background: black;
+	background-size: cover;
+}
+
+.coin{
+	border-radius: 50%;
+	background-color: gold;
+    height: 64px;
+    width: 64px;
+	display: inline-block;
+	transform: scale(0.5);
+}
+
+.player{
+	height: 64px;
+    width: 64px;
+    background: url('/img/icons8-user-female-skin-type-5-48.png');
+    background-size: cover;
+    display: inline-block;
+}
+
+.row .credits a{
+	color: #000;
+}
