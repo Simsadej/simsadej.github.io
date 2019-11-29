@@ -7,20 +7,28 @@
 // 5 = player/ player
 //8 = exit
 "use strict";
-var map = [  loadDoc()];
+var map = [
+	[1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,2,2,2,1,1,2,2,2,2,2,1],
+	[1,1,2,1,1,2,2,2,1,1,2,1],
+	[1,1,2,1,1,1,2,1,1,2,2,1],
+	[1,2,2,1,2,1,2,2,1,2,2,1],
+	[1,2,2,2,2,1,5,1,2,2,1,1],
+	[1,1,2,1,2,1,2,1,2,1,2,1],
+	[1,2,2,2,1,1,2,1,2,2,2,1],
+	[1,1,1,2,2,1,2,1,1,2,1,1],
+	[1,2,2,2,2,2,2,2,2,2,2,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1]];
+
 function loadDoc() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
-	  if (this.readyState == 4 && this.status == 200) {
 		  console.log(this.responseText);
-		return this.responseText;
-	  }
+		  map.push(this.responseText);
 	};
 	xhttp.open("GET", "mazeconfig.php", true);
 	xhttp.send();
   }
-
-
 
 
 // Values not changing
@@ -28,25 +36,33 @@ const WALL = 1;
 const COINS = 2;
 const PASSAGE = 4;
 const PLAYER = 5;
-const EXIT = 6;
 
-var threats = {
-	
+var player = {
+	x: 6,
+	y: 5,
+	coins: 0
 }
+const EXIT = 6;
+var exit = {
+	x: -1,
+	y: -1
+};
+
+// var threats = {
+	
+// }
 
 //values changing
 var cols = 21;
 var rows = 13;
 
-  var player = {
-	x: 6,
-	y: 5,
-	coins: 0
-}
-  var exit = {
-		  x: 11,
-		  y: 10
+
+var start = {
+		  x: Math.round(Math.random() * (cols / 2)),
+		  y: Math.round(Math.random() * ( rows / 2))
   }
+
+
 var totalWealth = 0; 
 
 function drawWall(c,r ){
@@ -64,27 +80,25 @@ function clearMaze(){
 	document.getElementById("maze-container").innerHTML = '';
 }
 
-  
   function drawMaze() {
       for(var i = 0; i < map.length; i++){
         for(var j = 0; j < map[i].length; j++){
 			 if(map[i][j] === WALL){
-                document.getElementById('maze-container').innerHTML += "<div class='wall'></div>";
+                document.getElementById('maze-container').innerHTML += "<div class='wall text-center'></div>";
 			}else if (map[i][j] === COINS){
-				document.getElementById('maze-container').innerHTML += "<div class='coin'></div>";
+				document.getElementById('maze-container').innerHTML += "<div class='coin text-center'></div>";
 			}else if (map[i][j] === PLAYER){
-				document.getElementById('maze-container').innerHTML += "<div class='player'></div>";
+				document.getElementById('maze-container').innerHTML += "<div class='player text-center'></div>";
 			}else if (map[i][j] === PASSAGE){
-				document.getElementById('maze-container').innerHTML += "<div class='passage'></div>";
-			} else if (map[i][j] === EXIT ) {
-				document.getElementById('maze-container').innerHTML += "<div class='exit'></div>";
+				document.getElementById('maze-container').innerHTML += "<div class='passage text-center'></div>";
+			} else if (map[i][j] === EXIT) {
+				document.getElementById('maze-container').innerHTML += "<div class='exit text-center'></div>";
 			}
 		}
 		document.getElementById('maze-container').innerHTML+= "<br>";
 	  }  
   }
 
-//   drawMaze();
 
 function moveUp(){
 	if(map[player.y-1][player.x] !== WALL){
@@ -92,7 +106,7 @@ function moveUp(){
             player.coins++;
             totalWealth = player.coins;
             document.querySelector('.badge').valueOf().innerText = totalWealth;
-        }
+		}
 			map[player.y][player.x] = PASSAGE;
 			player.y--;
 			map[player.y][player.x] = PLAYER;
@@ -166,10 +180,10 @@ function moveRight(){
 	})
   
 function init(){
+	loadDoc();
 	drawMaze();
 	drawWall(map[cols], map[rows]);
-	// player.x = start.x;
-	// player.y = start.y
+	map[start.x][start.y] = 0;
 }
 
 init();
